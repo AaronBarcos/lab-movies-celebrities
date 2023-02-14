@@ -6,32 +6,7 @@ const Celebrity = require("../models/Celebrity.model");
 
 // all your routes here
 
-
-// GET "/celebrities/create" => render form to create a celebrity
-router.get("/create", async (req, res, next) => {
-  try {
-    const celebrities = await Celebrity.find()
-    res.render("movies/new-movie.hbs", {
-        celebrities: celebrities
-    });
-  } catch (error) {
-    next(error)
-  }
-});
-
-//GET "/movies" => render movies list
-router.get("/:id", async (req, res, next) => {
-    try {
-        const singleMovie = await Movie.findById(req.params.id).populate("cast")
-        res.render("movies/movie-details.hbs", {
-            singleMovie
-        })
-    } catch (error) {
-        next(error);
-    }
-})
-
-// POST "/creatE" => send data to DB
+// POST "/create" => send data to DB
 router.post("/create", async (req, res, next) => {
     try {
         // console.log(req.body)
@@ -59,6 +34,18 @@ router.get("/", async (req, res, next) =>{
   }
 })
 
+//GET "/movies/:id" => render movies details
+router.get("/:id", async (req, res, next) => {
+  try {
+      const singleMovie = await Movie.findById(req.params.id).populate("cast")
+      res.render("movies/movie-details.hbs", {
+          singleMovie
+      })
+  } catch (error) {
+      next(error);
+  }
+})
+
 // POST "movies/:id/delete" => deleting movies from DB
 router.post("/:id/delete", async (req, res, next) => {
   try {
@@ -69,7 +56,7 @@ router.post("/:id/delete", async (req, res, next) => {
   }
 })
 
-//GET "/movies" => render movies list
+//GET "/movies/:id/edit" => render form to edit movies
 router.get("/:id/edit", async (req, res, next) => {
   try {
     const singleMovie = await Movie.findById(req.params.id);
@@ -88,7 +75,7 @@ router.get("/:id/edit", async (req, res, next) => {
   }
 });
 
-// POST "movies/:id/delete" => deleting movies from DB
+// POST "movies/:id/edit" => editing movies from DB
 router.post("/:id/edit", async (req, res, next) => {
   try {
     const updateMovie = await Movie.findByIdAndUpdate(req.params.id, {
@@ -103,8 +90,5 @@ router.post("/:id/edit", async (req, res, next) => {
     next(err)
   }
 })
-
-
-
 
 module.exports = router;

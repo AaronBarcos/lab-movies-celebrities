@@ -23,7 +23,7 @@ router.get("/create", (req, res, next) => {
     res.render("celebrities/new-celebrity.hbs")
 })
 
-// POST "/celebrities/creatE" => send data to DB
+// POST "/celebrities/create" => send data to DB
 router.post("/create", async (req, res, next) => {
     try {
         // console.log(req.body)
@@ -38,5 +38,18 @@ router.post("/create", async (req, res, next) => {
         next(err)
     }
 })
+
+// GET "/celebrities/:id" => render celebrity details
+router.get("/:id", async (req, res, next) => {
+    try {
+        const celebrityInfo = await Celebrity.findById(req.params.id)
+        
+        res.render("celebrities/celebrities-details.hbs", celebrityInfo)
+    } catch (err) {
+        next(err)
+        
+    }
+  })
+  
 
 module.exports = router;
