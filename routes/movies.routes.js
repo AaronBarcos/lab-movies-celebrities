@@ -19,6 +19,18 @@ router.get("/create", async (req, res, next) => {
   }
 });
 
+//GET "/movies" => render movies list
+router.get("/:id", async (req, res, next) => {
+    try {
+        const singleMovie = await Movie.findById(req.params.id).populate("cast")
+        res.render("movies/movie-details.hbs", {
+            singleMovie
+        })
+    } catch (error) {
+        next(error);
+    }
+})
+
 // POST "/creatE" => send data to DB
 router.post("/create", async (req, res, next) => {
     try {
