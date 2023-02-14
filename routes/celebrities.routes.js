@@ -47,7 +47,6 @@ router.get("/:id", async (req, res, next) => {
         res.render("celebrities/celebrities-details.hbs", celebrityInfo)
     } catch (err) {
         next(err)
-        
     }
   })
 
