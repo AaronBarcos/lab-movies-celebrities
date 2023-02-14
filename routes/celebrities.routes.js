@@ -4,6 +4,20 @@ const Celebrity = require("../models/Celebrity.model");
 const router = require("express").Router();
 
 // all your routes here
+
+// GET "/celebrities" => render list of celebrities
+
+router.get("/", async (req, res, next) => {
+    try {
+        const celebrities = await Celebrity.find()
+        res.render("celebrities/celebrities.hbs", {
+            celebrities: celebrities
+        })
+    } catch (error) {
+        next(error)
+    }
+})
+
 // GET "/celebrities/create" => render form to create a celebrity
 router.get("/create", (req, res, next) => {
     res.render("celebrities/new-celebrity.hbs")
@@ -18,7 +32,7 @@ router.post("/create", async (req, res, next) => {
             occupation: req.body.occupation,
             catchPhrase: req.body.catchPhrase
         })
-        res.redirect("/")
+        res.redirect("/celebrities")
 
     } catch (err) {
         next(err)
