@@ -3,9 +3,13 @@
         <p>Title: {{singleMovie.title}}</p>
         <p>Genre: {{singleMovie.genre}}</p>
         <p>Plot: {{singleMovie.plot}}</p>
+    <h5>Cast</h5>
     {{#each singleMovie.cast}}
-        <p>Name:{{this.name}}</p>
-        <p>Occupation:{{this.occupation}}</p>
+        <p>Name: {{this.name}}</p>
+        <p>Occupation: {{this.occupation}}</p>
         <p>Catch Phrase: {{this.catchPhrase}}</p>
     {{/each}}
+    <form action="/movies/{{singleMovie._id}}/delete" method="post">
+        <button>Delete movie</button>
+    </form>
 </div>

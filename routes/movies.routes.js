@@ -59,6 +59,16 @@ router.get("/", async (req, res, next) =>{
   }
 })
 
+// POST "movies/:id/delete" => deleting movies from DB
+router.post("/:id/delete", async (req, res, next) => {
+  try {
+    await Movie.findByIdAndDelete(req.params.id)
+    res.redirect("/movies")
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 
 
