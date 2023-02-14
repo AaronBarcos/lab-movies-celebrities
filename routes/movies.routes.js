@@ -6,6 +6,36 @@ const Celebrity = require("../models/Celebrity.model");
 
 // all your routes here
 
+
+
+router.get("/create", async (req, res, next) => {
+  try {
+    const celebrities = await Celebrity.find()
+    res.render("movies/new-movie.hbs", {
+        celebrities: celebrities
+    });
+  } catch (error) {
+    next(error)
+  }
+});
+
+
+router.get("/:id", (req, res, next) => {
+  res.render()
+})
+
+//GET "/movies/:id" => render movies details
+router.get("/:id", async (req, res, next) => {
+    try {
+        const singleMovie = await Movie.findById(req.params.id).populate("cast")
+        res.render("movies/movie-details.hbs", {
+            singleMovie
+        })
+    } catch (error) {
+        next(error);
+    }
+})
+
 // POST "/create" => send data to DB
 router.post("/create", async (req, res, next) => {
     try {
@@ -31,18 +61,6 @@ router.get("/", async (req, res, next) =>{
     res.render("movies/movies.hbs", {allMovies})
   } catch (err) {
     next(err)
-  }
-})
-
-//GET "/movies/:id" => render movies details
-router.get("/:id", async (req, res, next) => {
-  try {
-      const singleMovie = await Movie.findById(req.params.id).populate("cast")
-      res.render("movies/movie-details.hbs", {
-          singleMovie
-      })
-  } catch (error) {
-      next(error);
   }
 })
 
@@ -90,5 +108,10 @@ router.post("/:id/edit", async (req, res, next) => {
     next(err)
   }
 })
+
+
+
+
+
 
 module.exports = router;

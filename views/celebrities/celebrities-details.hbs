@@ -1,13 +1,13 @@
 <div>
     <h4>Details:</h4>
-        <p>Name: </p>
-        <p>Occupation: </p>
-        <p>Quote: </p>
+        <p>Name: {{name}}</p>
+        <p>Occupation: {{occupation}}</p>
+        <p>Quote: {{catchPhrase}}</p>
     
-    <form action="/movies/{{singleMovie._id}}/delete" method="post">
+    <form action="/celebrities/{{_id}}/delete" method="post">
         <button>Delete movie</button>
     </form>
-    <form action="/movies/{{singleMovie._id}}/edit" method="get">
+    <form action="/movies/{{_id}}/edit" method="get">
         <button>Update movie</button>
     </form>
 </div>
