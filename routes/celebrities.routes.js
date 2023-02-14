@@ -52,7 +52,41 @@ router.get("/:id", async (req, res, next) => {
   })
 
 // POST "/celebrities/:id/detele" => delete celebrity
-router.get("/:id/delete")
+router.post("/:id/delete", async (req, res, next) => {
+    try {
+        await Celebrity.findByIdAndDelete(req.params.id)
+        res.redirect("/celebrities")
+    } catch (err) {
+        next(err)
+    }
+})
+
+// GET "/celebrities/:id/edit" => render edit form
+router.get("/:id/edit", async (req, res, next) => {
+    try {
+        const celebrity = await Celebrity.findById(req.params.id)
+        console.log(celebrity)
+        res.render("celebrities/edit-celebrity.hbs", {
+            celebrity
+        })
+    } catch (err) {
+        next(err)
+    }
+})
+
+//POST "/celebrities/:id/edit" => update celebrity
+router.post("/:id/edit", async (req, res, next) => {
+    try {
+        await Celebrity.findByIdAndUpdate(req.params.id, {
+            name: req.body.name,
+            occupation: req.body.occupation,
+            catchPhrase: req.body.catchPhrase
+        })
+        res.redirect("/celebrities")
+    } catch (err) {
+        next(err)
+    }
+})
   
 
 module.exports = router;
