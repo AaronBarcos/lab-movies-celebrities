@@ -69,6 +69,41 @@ router.post("/:id/delete", async (req, res, next) => {
   }
 })
 
+//GET "/movies" => render movies list
+router.get("/:id/edit", async (req, res, next) => {
+  try {
+    const singleMovie = await Movie.findById(req.params.id);
+    const allCelebrities = await Celebrity.find();
+    console.log(singleMovie)
+    res.render("movies/edit-movie.hbs", {
+        singleMovie,
+    //   id: singleMovie._id,  
+    //   title: singleMovie.title,
+    //   genre: singleMovie.genre,
+    //   plot: singleMovie.plot,
+      celebrities: allCelebrities,
+    });
+  } catch (err) {
+    next(err);
+  }
+});
+
+// POST "movies/:id/delete" => deleting movies from DB
+router.post("/:id/edit", async (req, res, next) => {
+  try {
+    const updateMovie = await Movie.findByIdAndUpdate(req.params.id, {
+        title: req.body.title,
+        genre: req.body.genre,
+        plot: req.body.plot,
+        cast: req.body.cast
+    })
+    
+    res.redirect("/movies")
+  } catch (err) {
+    next(err)
+  }
+})
+
 
 
 
