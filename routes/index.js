@@ -13,11 +13,5 @@ router.use("/celebrities", celebritiesRoutes)
 const moviesRoutes = require("./movies.routes.js")
 router.use("/movies", moviesRoutes)
 
-router.get("/create", async (req, res, next) => {
-  const response = await Celebrity.create({
-    name: "Jose Luis",
-    age: 26
-  })
-})
 
 module.exports = router;
