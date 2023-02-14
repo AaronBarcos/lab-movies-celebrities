@@ -19,11 +19,6 @@ router.get("/create", async (req, res, next) => {
   }
 });
 
-
-router.get("/:id", (req, res, next) => {
-  res.render()
-})
-
 //GET "/movies/:id" => render movies details
 router.get("/:id", async (req, res, next) => {
     try {

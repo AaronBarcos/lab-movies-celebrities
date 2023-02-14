@@ -1,8 +1,7 @@
+<h3>Movies List</h3>
+<div class="list-group">
 
-<div>
-    <h3>Movies List</h3>
-
-    {{#each allMovies}}
-        <p><a href="/movies/{{this._id}}">{{this.title}}</a></p>
-    {{/each}}
+  {{#each allMovies}}
+    <a class="list-group-item list-group-item-action" href="/movies/{{this._id}}">{{this.title}}</a>
+  {{/each}}
 </div>

@@ -50,6 +50,9 @@ router.get("/:id", async (req, res, next) => {
         
     }
   })
+
+// POST "/celebrities/:id/detele" => delete celebrity
+router.get("/:id/delete")
   
 
 module.exports = router;
