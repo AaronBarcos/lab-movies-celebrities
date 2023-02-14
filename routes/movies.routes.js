@@ -19,21 +19,32 @@ router.get("/create", async (req, res, next) => {
   }
 });
 
-// POST "/celebrities/creatE" => send data to DB
+// POST "/creatE" => send data to DB
 router.post("/create", async (req, res, next) => {
     try {
         // console.log(req.body)
         await Movie.create({
-            name: req.body.name,
+            title: req.body.title,
             genre: req.body.genre,
             plot: req.body.plot,
             cast: req.body.cast
         })
-        res.redirect("/")
+        res.redirect("/movies")
 
     } catch (err) {
         next(err)
     }
+})
+
+//GET "/movies" => render movies list
+router.get("/", async (req, res, next) =>{
+  try {
+    const allMovies = await Movie.find()
+    // console.log(allMovies)
+    res.render("movies/movies.hbs", {allMovies})
+  } catch (err) {
+    next(err)
+  }
 })
 
 
